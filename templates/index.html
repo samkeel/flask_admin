@@ -3,11 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Title</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cover.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/material-design-icons/css/material-design-iconic-font.min.css') }}">
 </head>
 
 
@@ -18,6 +21,10 @@
         crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script type="text/javascript" src="{{url_for('static', filename='popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='bootstrap.min.js')}}"></script>
+    <!-- <script type="text/javascript" src="{{url_for('static', filename='bootstrap.min.js')}}"></script> -->    
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/js/app.js')}}"></script>
 
 </html>

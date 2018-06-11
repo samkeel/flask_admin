@@ -1,3 +1,107 @@
+{% extends "index.html" %} {% block content %}
+
 <body>
-<p>main works</p>
+    <div class="be-wrapper">
+        <nav class="navbar navbar-expand fixed-top be-top-header">
+            <div class="container-fluid">
+                <div class="be-navbar-header">
+                    <img src="{{url_for('static', filename='img/logo-xx.png')}}" class="navbar-brand">
+                    <a href="/main"></a>
+                </div>
+            </div>
+            <div class="be-right-navbar">
+                <ul class="nav navbar-nav float-right be-user-nav">
+                    <li class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                            <img src="assets/img/avatar.png" alt="Avatar">
+                            <span class="user-name">UserName</span>
+                        </a>
+                        <div role="menu" class="dropdown-menu">
+                            <div class="user-info">
+                                <div class="user-name">UserName</div>
+                                <div class="user-position online">Available</div>
+                            </div>
+                            <a href="pages-profile.html" class="dropdown-item">
+                                <span class="icon mdi mdi-face"></span> Account</a>
+                            <a href="#" class="dropdown-item">
+                                <span class="icon mdi mdi-settings"></span> Settings</a>
+                            <a href="pages-login.html" class="dropdown-item">
+                                <span class="icon mdi mdi-power"></span> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="page-title">
+                    <span>Blank Header</span>
+                </div>
+            </div>
+        </nav>
+        <div class="be-left-sidebar">
+            <div class="left-sidebar-wrapper">
+                <a href="#" class="left-sidebar-toggle">Blank Page</a>
+                <div class="left-sidebar-spacer">
+                    <div class="left-sidebar-scroll">
+                        <div class="left-sidebar-content">
+                            <ul class="sidebar-elements">
+                                <li class="divider">Menu</li>
+                                <li class="parent">
+                                    <a href="#">
+                                        <i class="icon mdi mdi-home"></i>
+                                        <span>Home</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="pages-blank.html">Blank Page</a></li>
+                                        <li class="active"><a href="index.html">Blank Page Header</a></li>
+                                        <li><a href="pages-blank-aside.html">Page Aside</a></li>
+                                        <li><a href="pages-login.html">Login</a></li>
+                                        <li><a href="pages-404.html">404 Page</a></li>
+                                        <li><a href="pages-sign-up.html">Sign Up</a></li>
+                                        <li><a href="pages-forgot-password.html">Forgot Password</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-widget">
+                    <div class="progress-data">
+                        <span class="progress-value">60%</span>
+                        <span class="name">Current Project</span>
+                    </div>
+                    <div class="progress">
+                        <div style="width: 60%;" class="progress-bar progress-bar-primary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="be-content">
+            <div class="page-head">
+                <h2 class="page-head-title">Blank Page</h2>
+                <nav aria-label="breadcrumb" role="navigation">
+                    <ol class="breadcrumb page-head-nav">
+                        <li class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Pages</a>
+                        </li>
+                        <li class="breadcrumb-item active">Blank Page Header</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="main-content container-fluid">
+                <h3 class="text-center">Content goes here!</h3>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //initialize the javascript
+            App.init();
+        });
+        
+      </script>
+
+
 </body>
+{% endblock %}
