@@ -6,25 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='app.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">    
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/material-design-icons/css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 
-    <!-- Bootstrap core -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script type="text/javascript" src="{{url_for('static', filename='popper.min.js')}}"></script>
-    <!-- <script type="text/javascript" src="{{url_for('static', filename='bootstrap.min.js')}}"></script> -->    
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/js/app.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/prettify/prettify.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //initialize the javascript
+            App.init();
+            
+            //Runs prettify
+            prettyPrint();
+        });
+      </script>
 
 </html>
