@@ -9,6 +9,12 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/material-design-icons/css/material-design-iconic-font.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- test -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/jqvmap/jqvmap.min.css') }}">
+    <!-- data tables -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/datatables/css/dataTables.bootstrap.min.css') }}">
+
 
 </head>
 
@@ -16,11 +22,36 @@
 {% block content %}{% endblock %}
 
     <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js')}}"></script> <!--  -->
     <script type="text/javascript" src="{{url_for('static', filename='lib/prettify/prettify.js')}}"></script>
+
+    <!-- dashboard -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery-flot/jquery.flot.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/countup/countUp.min.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery-ui/jquery-ui.min.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jqvmap/jquery.vmap.min.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery.sparkline/jquery.sparkline.min.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/app-charts-sparkline.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jqvmap/maps/jquery.vmap.world.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/app-dashboard.js')}}"></script> <!--  -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery-flot/jquery.flot.pie.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery-flot/jquery.flot.resize.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery-flot/plugins/jquery.flot.orderBars.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery-flot/plugins/curvedLines.js')}}"></script>
+    <!-- data tables -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/dataTables.buttons.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.html5.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.flash.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.print.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.colVis.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/app-tables-datatables.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -29,6 +60,11 @@
             
             //Runs prettify
             prettyPrint();
+
+            App.dashboard();        
+
+            App.dataTables(); 
+     
         });
       </script>
 

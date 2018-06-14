@@ -17,5 +17,10 @@ def main():
     return render_template("main.html")
 
 
+@app.route("/drawinglist")
+def drawinglist():
+    return render_template("drawinglist.html")
+
+
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
