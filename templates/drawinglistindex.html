@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/material-design-icons/css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/datatables/css/dataTables.bootstrap.min.css') }}">
+</head>
+
+
+{% block content %}{% endblock %}
+
+    <!-- main, header and navbar -->
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+    <!-- DataTables-->
+
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/dataTables.buttons.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.html5.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.flash.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.print.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.colVis.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/plugins/buttons/js/buttons.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/app-tables-datatables.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //initialize the javascript
+            App.init();
+            App.dataTables();
+        });
+      </script>
+</html>

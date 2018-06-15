@@ -12,9 +12,9 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/main")
-def main():
-    return render_template("main.html")
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 
 @app.route("/drawinglist")
