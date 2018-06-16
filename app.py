@@ -1,3 +1,5 @@
+#! /usr/bin/env python3.6
+
 from flask import (Flask,
                    render_template,
                    redirect,
@@ -5,6 +7,7 @@ from flask import (Flask,
                    request)
 
 app = Flask(__name__)
+app.secret_key = 'Xqanu6dV6RKAMo5U0OmG2tlJpgIKBBgNaaAjlcXoR4RHZyyBTsodc7DmDF9+vKjkPuFevya7LmOgy9hx3WYKBTuzEhd61VQ2J9J'
 
 
 @app.route("/")
@@ -20,6 +23,11 @@ def dashboard():
 @app.route("/drawinglist")
 def drawinglist():
     return render_template("drawinglist.html")
+
+
+@app.route("/newdocument")
+def newdocument():
+    return render_template("newdocument.html")
 
 
 @app.errorhandler(404)
