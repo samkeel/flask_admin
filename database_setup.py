@@ -5,16 +5,16 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 
-class Catalogue(Base):
+class Documents(Base):
     __tablename__ = 'documents'
 
     doc_id = Column(Integer, primary_key=True)
-    project = Column(String(), nullable=False)
-    doc_name = Column(String(), nullable=False)
-    title_line_1 = Column(String(), nullable=False)
-    title_line_2 = Column(String(), nullable=False)
-    title_line_3 = Column(String(), nullable=False)
-    title_line_4 = Column(String(), nullable=False)
+    project = Column(String(), nullable=True)
+    doc_name = Column(String(), nullable=True)
+    title_line_1 = Column(String(), nullable=True)
+    title_line_2 = Column(String(), nullable=True)
+    title_line_3 = Column(String(), nullable=True)
+    title_line_4 = Column(String(), nullable=True)
 
     @property
     def serialize(self):

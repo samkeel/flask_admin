@@ -6,8 +6,18 @@ from flask import (Flask,
                    url_for,
                    request)
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+from database_setup import Base, Documents
+
 app = Flask(__name__)
 app.secret_key = 'Xqanu6dV6RKAMo5U0OmG2tlJpgIKBBgNaaAjlcXoR4RHZyyBTsodc7DmDF9+vKjkPuFevya7LmOgy9hx3WYKBTuzEhd61VQ2J9J'
+
+engine = create_engine('sqlite:///docs.db')
+Base.metadata.bind = engine
+
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 @app.route("/")
@@ -22,12 +32,20 @@ def dashboard():
 
 @app.route("/drawinglist")
 def drawinglist():
-    return render_template("drawinglist.html")
+    doc_list = session.query(Documents).all()
+    return render_template("drawinglist.html", doc_list=doc_list)
 
 
-@app.route("/newdocument")
+@app.route("/newdocument", methods=['GET', 'POST'])
 def newdocument():
-    return render_template("newdocument.html")
+    if request.method == 'POST':
+        newDoc = Documents(project=request.form['newproj'],
+                           doc_name=request.form['newdoc'])
+        session.add(newDoc)
+        session.commit()
+        return render_template("newdocument.html")
+    else:
+        return render_template("newdocument.html")
 
 
 @app.errorhandler(404)
