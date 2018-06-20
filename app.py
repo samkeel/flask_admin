@@ -9,13 +9,18 @@ from flask import (Flask,
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from database_setup import Base, Documents
+from flask_restful import Api
+from stats import Stats
 
 app = Flask(__name__)
 app.secret_key = 'Xqanu6dV6RKAMo5U0OmG2tlJpgIKBBgNaaAjlcXoR4RHZyyBTsodc7DmDF9+vKjkPuFevya7LmOgy9hx3WYKBTuzEhd61VQ2J9J'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 engine = create_engine('sqlite:///docs.db')
 Base.metadata.bind = engine
+api = Api(app)
 
+api.add_resource(Stats, '/doccount')
 
 session = scoped_session(sessionmaker(bind=engine))
 
@@ -43,9 +48,11 @@ def newdocument():
                            doc_name=request.form['newdoc'])
         session.add(newDoc)
         session.commit()
-        return render_template("newdocument.html")
+        docCount = session.query(Documents).count()
+        return render_template("newdocument.html", docCount=docCount)
     else:
-        return render_template("newdocument.html")
+        docCount = session.query(Documents).count()
+        return render_template("newdocument.html", docCount=docCount)
 
 
 @app.errorhandler(404)

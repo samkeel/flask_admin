@@ -10,7 +10,7 @@ class Documents(Base):
 
     doc_id = Column(Integer, primary_key=True)
     project = Column(String(), nullable=True)
-    doc_name = Column(String(), nullable=True)
+    doc_name = Column(String(), nullable=False)
     title_line_1 = Column(String(), nullable=True)
     title_line_2 = Column(String(), nullable=True)
     title_line_3 = Column(String(), nullable=True)

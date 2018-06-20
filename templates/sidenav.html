@@ -18,8 +18,12 @@
                                 <span>Progress</span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="/dashboard">Status Report</a></li>
-                                <li><a href="/dashboard">Charts</a></li>
+                                <li>
+                                    <a href="/dashboard">Status Report</a>
+                                </li>
+                                <li>
+                                    <a href="/dashboard">Charts</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="parent">
@@ -28,15 +32,45 @@
                                 <span>Documents</span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="/newdocument">Add Document</a></li>
-                                <li><a href="/drawinglist">Document list</a></li>                                
-                                <li><a href="/404.html">404 Error</a></li>
+                                <li>
+                                    <a href="/newdocument">Add Document</a>
+                                </li>
+                                <li>
+                                    <a href="/drawinglist">Document list</a>
+                                </li>
+                                <li>
+                                    <a href="/404.html">404 Error</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+
+        <!-- temp script declarations for bug hunting -->
+        <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script> 
+        <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $.ajax({
+                   type: 'GET' ,
+                   url: 'http://127.0.0.1:5000/doccount',
+                   data: { get_param: 'value'},
+                   dataType: 'json',
+                   success: function (data) {
+                       $.each(data, function(index, element) {
+                        //    console.log(data)
+                        $("<li>" + data + "</li>");
+                          
+                       });
+                   }
+                });
+            });
+        </script>
+
+
         <div class="progress-widget">
             <div class="progress-data">
                 <span class="progress-value">60%</span>
