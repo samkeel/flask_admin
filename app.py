@@ -55,6 +55,15 @@ def newdocument():
         return render_template("newdocument.html", docCount=docCount)
 
 
+@app.route("/deldoc/<int:id>", methods=['GET','POST'])
+def deldoc(id):
+    docToDelete = session.query(Documents).filter_by(doc_id=id).first()
+    if request.method == 'GET':
+        session.delete(docToDelete)
+        session.commit()
+        return redirect(url_for('drawinglist'))
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('pages-404.html'), 404

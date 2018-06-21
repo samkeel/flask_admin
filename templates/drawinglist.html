@@ -45,6 +45,7 @@
                             <th>Title Line 2</th>
                             <th>Title Line 3</th>
                             <th>Title Line 4</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -56,6 +57,16 @@
                               <td>{{n.title_line_2}}</td>
                               <td>{{n.title_line_3}}</td>
                               <td>{{n.title_line_4}}</td>
+                              <td class="text-right">
+                                <div class="btn-group btn-hspace">
+                                  <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="icon-dropdown mdi mdi-chevron-down"></span></button>
+                                  <ul role="menu" class="dropdown-menu pull-right">
+                                    <li><a href="#">Edit</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{url_for('deldoc', id=n.doc_id)}}">Delete</a></li>
+                                  </ul>
+                                </div>
+                              </td>
                             </tr>
                           {% endfor %}                         
                         </tbody>
