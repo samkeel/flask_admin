@@ -48,36 +48,10 @@
             </div>
         </div>
 
-        <!-- temp script declarations for bug hunting -->
-        <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script> 
-        <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $.ajax({
-                   type: 'GET' ,
-                   url: 'http://127.0.0.1:5000/doccount',
-                   data: { get_param: 'value'},
-                   dataType: 'json',
-                   success: function (data) {
-                       $.each(data, function(index, element) {
-                        //    console.log(data)
-                        $("<li>" + data + "</li>");
-                          
-                       });
-                   }
-                });
-            });
-        </script>
-
-
         <div class="progress-widget">
             <div class="progress-data">
-                <span class="progress-value">60%</span>
-                <span class="name">Current Project</span>
-            </div>
-            <div class="progress">
-                <div style="width: 60%;" class="progress-bar progress-bar-primary"></div>
+                <span class="progress-value">{{docCount}}</span>
+                <span class="name">Total Documents</span>
             </div>
         </div>
     </div>

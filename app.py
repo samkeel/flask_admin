@@ -32,13 +32,15 @@ def home():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html")
+    docCount = session.query(Documents).count()
+    return render_template("dashboard.html", docCount=docCount)
 
 
 @app.route("/drawinglist")
 def drawinglist():
     doc_list = session.query(Documents).all()
-    return render_template("drawinglist.html", doc_list=doc_list)
+    docCount = session.query(Documents).count()
+    return render_template("drawinglist.html", doc_list=doc_list, docCount=docCount)
 
 
 @app.route("/newdocument", methods=['GET', 'POST'])
