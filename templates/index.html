@@ -8,26 +8,8 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/material-design-icons/css/material-design-iconic-font.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/app.css') }}">
 
 </head>
-
-
 {% block content %}{% endblock %}
-
-<script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        //initialize the javascript
-        App.init();
-    });
-</script>
-
-
-
 </html>

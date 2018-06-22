@@ -3,47 +3,53 @@
 
 <body class="be-splash-screen">
     <div class="be-wrapper be-login">
-        <div class="be-content">
-            <div class="main-content container-fluid">
-                <div class="splash-container">
-                    <div class="panel panel-default panel-border-color panel-border-color-primary">
-                        <div class="panel-heading">
-                            <img src="assets/img/logo-xx.png" alt="logo" width="102" height="27" class="logo-img">
-                            <span class="splash-description">Please enter your user information.</span>
-                        </div>
-                        <div class="panel-body">
-                            <form action="/dashboard" method="get">
-                                <div class="login-form">
-                                    <div class="form-group">
-                                        <input id="username" type="text" placeholder="Username" autocomplete="off" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <input id="password" type="password" placeholder="Password" class="form-control">
-                                    </div>
-                                    <div class="form-group row login-tools">
-                                        <div class="col-xs-6 login-remember">
-                                            <div class="be-checkbox">
-                                                <input type="checkbox" id="remember">
-                                                <label for="remember">Remember Me</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 login-forgot-password">
-                                            <a href="pages-forgot-password.html">Forgot Password?</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row login-submit">
-                                        <div class="col-xs-6">
-                                            <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl">Sign in</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+      <div class="be-content">
+        <div class="main-content container-fluid">
+          <div class="splash-container">
+            <div class="card card-border-color card-border-color-primary">
+              <div class="card-header"><img src="assets/img/logo-xx.png" alt="logo" width="102" height="27" class="logo-img"><span class="splash-description">Please enter your user information.</span></div>
+              <div class="card-body">
+                <form action="/dashboard" method="get">
+                  <div class="login-form">
+                    <div class="form-group">
+                      <input id="username" type="text" placeholder="Username" autocomplete="off" class="form-control">
                     </div>
-                </div>
+                    <div class="form-group">
+                      <input id="password" type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <div class="form-group row login-tools">
+                      <div class="col-6 login-remember">
+                        <label class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input"><span class="custom-control-label">Remember Me</span>
+                        </label>
+                      </div>
+                      <div class="col-6 login-forgot-password"><a href="pages-forgot-password.html">Forgot Password?</a></div>
+                    </div>
+                    <div class="form-group row login-submit">
+                      <div class="col-6">
+                        <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl">Sign in</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-</body>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      	App.init();
+      });
+      
+    </script>
+  </body>
 {% endblock %}
