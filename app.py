@@ -39,8 +39,7 @@ def dashboard():
 @app.route("/drawinglist")
 def drawinglist():
     doc_list = session.query(Documents).all()
-    docCount = session.query(Documents).count()
-    return render_template("drawinglist.html", doc_list=doc_list, docCount=docCount)
+    return render_template("drawinglist.html", doc_list=doc_list)
 
 
 @app.route("/newdocument", methods=['GET', 'POST'])
@@ -50,11 +49,9 @@ def newdocument():
                            doc_name=request.form['newdoc'])
         session.add(newDoc)
         session.commit()
-        docCount = session.query(Documents).count()
-        return render_template("newdocument.html", docCount=docCount)
+        return render_template("newdocument.html")
     else:
-        docCount = session.query(Documents).count()
-        return render_template("newdocument.html", docCount=docCount)
+        return render_template("newdocument.html")
 
 
 @app.route("/deldoc/<int:id>", methods=['GET','POST'])
