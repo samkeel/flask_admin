@@ -61,7 +61,7 @@ def deldoc(id):
     if request.method == 'GET':
         session.delete(docToDelete)
         session.commit()
-        flash('blah blah')
+        flash('Document deleted.')
         return redirect(url_for('drawinglist'))
 
 

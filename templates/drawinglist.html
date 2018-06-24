@@ -20,16 +20,28 @@
             <div class="main-content container-fluid">
                 <div class="row">
                     <!-- flash msg -->
-                    <div class = alert>
-                    {% with messages = get_flashed_messages() %}
+                    <div class="col-sm-12">
+                    <div class = flashes>
+                       
+                    {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
-                            <ul class=flashes>
-                                {% for message in messages %}
-                                    <li>{{ message }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% for category, message in messages %}
+                                {% if category == 'message' %}
+                                <div role="alert" class="alert alert-success alert-icon alert-icon-border alert-dismissible">
+                                    <div class="icon"><span class="mdi mdi-check"></span></div>
+                                    <div class="message">
+                                        <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true" class="mdi mdi-close"></span></button>
+                                {% else %}
+                                    <!-- if error or warning clauses -->
+                                    <div class="alert alert-{{ category }} alert-dismissible" role="alert"></div>                                    
+                                {% endif %}
+                                    {{ message }}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         {% endif %}
                     {% endwith %}
+                    </div>                    
                     </div>
                     <!--  -->
                     <div class="col-sm-12">
@@ -41,11 +53,10 @@
                                         <span class="icon mdi mdi-more-vert"></span>
                                     </a>
                                     <div role="menu" class="dropdown-menu">
-                                        <a href="#" class="dropdown-item">Action</a>
-                                        <a href="#" class="dropdown-item">Another action</a>
-                                        <a href="#" class="dropdown-item">Something else here</a>
+                                        <a href="#" class="dropdown-item">Option 1</a>
+                                        <a href="#" class="dropdown-item">Option 2</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item">Separated link</a>
+                                        <a href="#" class="dropdown-item">Option 3</a>
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +66,7 @@
                                         <tr>
                                             <th>Project</th>
                                             <th>Doc name</th>
+                                            <th>Revision</th>
                                             <th>Title Line 1</th>
                                             <th>Title Line 2</th>
                                             <th>Title Line 3</th>
@@ -67,6 +79,7 @@
                                         <tr class="odd gradeX">
                                             <td>{{n.project}}</td>
                                             <td>{{n.doc_name}}</td>
+                                            <td></td>
                                             <td>{{n.title_line_1}}</td>
                                             <td>{{n.title_line_2}}</td>
                                             <td>{{n.title_line_3}}</td>
@@ -97,18 +110,17 @@
     <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='lib/datatables/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/app-tables-datatables.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery.gritter/js/jquery.gritter.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/app-ui-notifications.js')}}"></script>
+
 
     <script type="text/javascript">
         $(document).ready(function () {
             //initialize the javascript
             App.init();
             App.dataTables();
-            App.uiNotifications();
+
             setTimeout(function(){
-                $("div.alert").remove();
-            }, 5000); // 5 seconds
+                $("div.flashes").remove();
+            }, 3000); // 3 seconds
         });
     </script>
 </body>
