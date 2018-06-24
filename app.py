@@ -7,7 +7,7 @@ from flask import (Flask,
                    flash,
                    request)
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 from database_setup import Base, Documents
 from flask_restful import Api
@@ -33,8 +33,8 @@ def home():
 
 @app.route("/dashboard")
 def dashboard():
-    docCount = session.query(Documents).count()
-    return render_template("dashboard.html", docCount=docCount)
+    recentdocs = session.query(Documents).order_by(desc(Documents.pub_update)).limit(5).all()
+    return render_template("dashboard.html", recentdocs=recentdocs)
 
 
 @app.route("/drawinglist")
@@ -48,7 +48,11 @@ def newdocument():
     if request.method == 'POST':
         newDoc = Documents(project=request.form['newproj'],
                            doc_name=request.form['newdoc'],
-                           revision=request.form['rev'])
+                           revision=request.form['rev'],
+                           title_line_1=request.form['tl1'],
+                           title_line_2=request.form['tl2'],
+                           title_line_3=request.form['tl3'],
+                           title_line_4=request.form['tl4'])
         session.add(newDoc)
         session.commit()
         return render_template("newdocument.html")
@@ -56,7 +60,7 @@ def newdocument():
         return render_template("newdocument.html")
 
 
-@app.route("/deldoc/<int:id>", methods=['GET','POST'])
+@app.route("/deldoc/<int:id>", methods=['GET', 'POST'])
 def deldoc(id):
     docToDelete = session.query(Documents).filter_by(doc_id=id).first()
     if request.method == 'GET':

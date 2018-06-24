@@ -19,7 +19,22 @@
         <div class="be-content">
             <div class="main-content container-fluid">
                 <div class="row">
-
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">Most recent Document updates</div>
+                            <div class="card-body">
+                                <ul class="user-timeline user-timeline-compact">
+                                    {% for n in recentdocs %}
+                                    <li>
+                                    <div class="user-timeline-date">{{n.pub_update}}</div>
+                                    <div class="user-timeline-title">{{n.doc_name}}</div>
+                                    <div class="user-timeline-description">{{n.title_line_1}} {{n.title_line_2}} {{n.title_line_3}} {{n.title_line_4}} Revision:{{n.revision}}</div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
