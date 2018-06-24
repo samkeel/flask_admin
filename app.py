@@ -4,6 +4,7 @@ from flask import (Flask,
                    render_template,
                    redirect,
                    url_for,
+                   flash,
                    request)
 
 from sqlalchemy import create_engine
@@ -60,6 +61,7 @@ def deldoc(id):
     if request.method == 'GET':
         session.delete(docToDelete)
         session.commit()
+        flash('blah blah')
         return redirect(url_for('drawinglist'))
 
 

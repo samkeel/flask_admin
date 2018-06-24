@@ -19,6 +19,18 @@
         <div class="be-content">
             <div class="main-content container-fluid">
                 <div class="row">
+                    <!-- flash msg -->
+                    <div class = alert>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class=flashes>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                    </div>
                     <!--  -->
                     <div class="col-sm-12">
                         <div class="card card-table">
@@ -94,6 +106,9 @@
             App.init();
             App.dataTables();
             App.uiNotifications();
+            setTimeout(function(){
+                $("div.alert").remove();
+            }, 5000); // 5 seconds
         });
     </script>
 </body>
