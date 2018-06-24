@@ -47,7 +47,8 @@ def drawinglist():
 def newdocument():
     if request.method == 'POST':
         newDoc = Documents(project=request.form['newproj'],
-                           doc_name=request.form['newdoc'])
+                           doc_name=request.form['newdoc'],
+                           revision=request.form['rev'])
         session.add(newDoc)
         session.commit()
         return render_template("newdocument.html")
