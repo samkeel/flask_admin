@@ -2,9 +2,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from datetime import datetime
-from sqlalchemy.orm import backref
-
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 
 Base = declarative_base()
 
@@ -18,8 +16,8 @@ class Documents(Base):
     revision = Column(String(), nullable=False)
     pub_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     pub_update = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-    # one-to-one relationship with DocTitles
-    title = relationship("DocTitles", uselist=False, back_populates="doc_parent")
+    # one-to-many relationship with DocTitles
+    title = relationship("DocTitles", back_populates="doc_parent")
 
 
     @property
@@ -41,7 +39,9 @@ class DocTitles(Base):
 
     _id = Column(Integer, primary_key=True)
     doc_num = Column(Integer, ForeignKey('documents.doc_id'))
-    doc_parent = relationship("Documents", back_populates="title")
+    # doc_parent = relationship("Documents", back_populates="title")
+    # doc_parent = relationship("Documents", backref=backref('doc_title', order_by=_id))
+    doc_parent = relationship("Documents", back_populates="title", uselist=False)
     title_line_1 = Column(String(), nullable=True)
     title_line_2 = Column(String(), nullable=True)
     title_line_3 = Column(String(), nullable=True)
