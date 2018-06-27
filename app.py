@@ -5,11 +5,11 @@ from flask import (Flask,
                    redirect,
                    url_for,
                    flash,
-                   request)
+                   request, jsonify)
 
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
-from database_setup import Base, Documents
+from database_setup import Base, Documents, DocTitles
 from flask_restful import Api
 from stats import Stats
 
@@ -21,7 +21,7 @@ engine = create_engine('sqlite:///docs.db')
 Base.metadata.bind = engine
 api = Api(app)
 
-api.add_resource(Stats, '/doccount')
+# api.add_resource(Stats, '/doccount')
 
 session = scoped_session(sessionmaker(bind=engine))
 
@@ -43,18 +43,28 @@ def drawinglist():
     return render_template("drawinglist.html", doc_list=doc_list)
 
 
+@app.route("/drawinglist/JSON")
+def drawinglistJSON():
+    doc_list = session.query(Documents).all()
+    return jsonify(Documents=[i.serialize for i in doc_list])
+
+@app.route("/drawinglist/titleJSON")
+def drawinglisttitleJSON():
+    doc_titles = session.query(DocTitles).all()
+    return jsonify(Documents=[i.serialize for i in doc_titles])
+
+
 @app.route("/newdocument", methods=['GET', 'POST'])
 def newdocument():
     if request.method == 'POST':
         newDoc = Documents(project=request.form['newproj'],
                            doc_name=request.form['newdoc'],
-                           revision=request.form['rev'],
-                           title_line_1=request.form['tl1'],
-                           title_line_2=request.form['tl2'],
-                           title_line_3=request.form['tl3'],
-                           title_line_4=request.form['tl4'])
+                           revision=request.form['rev'])
         session.add(newDoc)
+        new_title = DocTitles(title_line_1=request.form['tl1'])
+        session.add(new_title)
         session.commit()
+        flash('Document Added.')
         return render_template("newdocument.html")
     else:
         return render_template("newdocument.html")

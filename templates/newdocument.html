@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/material-design-icons/css/material-design-iconic-font.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% extends "drawinglistindex.html" %} {% block content %}
 
 <body>
-    <div class="be-wrapper be-fixed-sidebar">
-        <nav class="navbar navbar-default navbar-fixed-top be-top-header">
+    <div class="be-wrapper">
+        <nav class="navbar navbar-expand fixed-top be-top-header">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <a href="index.html" class="navbar-brand"></a>
+                <div class="container-fluid">
+                    <a href="/" class="navbar-brand"></a>
                 </div>
                 <div class="be-right-navbar">
                     <!-- header -->
@@ -26,64 +15,89 @@
                 </div>
             </div>
         </nav>
-        <!-- main_content -->
+        <!-- Main container -->
         <div class="be-content">
-
             <div class="main-content container-fluid">
-                <!--Basic forms-->
                 <div class="row">
+                    <!-- flash msg -->
+                    <div class="col-sm-12">
+                        <div class=flashes>
+                            {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+                            {% if category == 'message' %}
+                            <div role="alert" class="alert alert-success alert-icon alert-icon-border alert-dismissible">
+                                <div class="icon">
+                                    <span class="mdi mdi-check"></span>
+                                </div>
+                                <div class="message">
+                                    <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                                        <span aria-hidden="true" class="mdi mdi-close"></span>
+                                    </button>
+                                    {% else %}
+                                    <!-- if error or warning clauses -->
+                                    <div class="alert alert-{{ category }} alert-dismissible" role="alert"></div>
+                                    {% endif %} {{ message }}
+                                </div>
+                            </div>
+                            {% endfor %} {% endif %} {% endwith %}
+                        </div>
+                    </div>
+                    <!--  -->
                     <div class="col-md-12">
-                        <div class="panel panel-default panel-border-color panel-border-color-primary">
-                            <div class="panel-heading panel-heading-divider">Add new document</div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" method="POST">
-                                    <div class="form-group xs-mt-5">
-                                        <label class="col-sm-1 control-label">Project</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="newproj">
+                        <div class="card card-border-color card-border-color-primary">
+                            <div class="card-header card-header-divider">Add new documents
+                                <span class="card-subtitle">Blah blah more text</span>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Project</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="newproj">
                                         </div>
                                     </div>
-                                    <div class="form-group xs-mt-2">
-                                        <label class="col-sm-1 control-label">Document</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="newdoc">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Document</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="newdoc">
                                         </div>
                                     </div>
-                                    <div class="form-group xs-mt-2">
-                                            <label class="col-sm-1 control-label">Rev</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="rev">
-                                            </div>
-                                        </div>
-                                    <div class="form-group xs-mt-2">
-                                        <label class="col-sm-1 control-label">Title line 1</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="tl1">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Rev</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="rev">
                                         </div>
                                     </div>
-                                    <div class="form-group xs-mt-2">
-                                        <label class="col-sm-1 control-label">Title line 2</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="tl2">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Title Line 1</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="tl1">
                                         </div>
                                     </div>
-                                    <div class="form-group xs-mt-2">
-                                        <label class="col-sm-1 control-label">Title line 3</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="tl3">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Title Line 2</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="tl2">
                                         </div>
                                     </div>
-                                    <div class="form-group xs-mt-2">
-                                        <label class="col-sm-1 control-label">Title line 4</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="tl4">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Title Line 3</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="tl3">
                                         </div>
                                     </div>
-                                    <div class="row xs-pt-15">
-                                        <div class="col-xs-12">
+                                    <div class="form-group row">
+                                        <label for="inputText3" class="col-12 col-sm-3 col-form-label text-sm-right">Title Line 4</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input id="inputText3" type="text" class="form-control" name="tl4">
+                                        </div>
+                                    </div>
+                                    <div class="row pt-3">
+                                        <div class="col-lg-6 pb-4 pb-lg-0">
+                                        </div>
+                                        <div class="col-sm-6">
                                             <p class="text-right">
                                                 <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                                <button class="btn btn-space btn-default">Cancel</button>
+                                                <button class="btn btn-space btn-secondary">Cancel</button>
                                             </p>
                                         </div>
                                     </div>
@@ -94,21 +108,21 @@
                 </div>
             </div>
         </div>
-
         <!-- /main_content -->
     </div>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //initialize the javascript
+            App.init();
+            setTimeout(function(){
+                $("div.flashes").remove();
+            }, 1000); // 1 seconds
+        });
+    </script>
 </body>
-<script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        //initialize the javascript
-        App.init();
-    });
-</script>
-
-</html>
+{% endblock %}

@@ -106,3 +106,4 @@ venv.bak/
 static/img/
 *.db
 .idea/workspace.xml
+.idea/workspace.xml
