@@ -11,13 +11,14 @@ from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 from database_setup import Base, Documents, DocTitles
 from flask_restful import Api
-from stats import Stats
+
 
 app = Flask(__name__)
 app.secret_key = 'Xqanu6dV6RKAMo5U0OmG2tlJpgIKBBgNaaAjlcXoR4RHZyyBTsodc7DmDF9+vKjkPuFevya7LmOgy9hx3WYKBTuzEhd61VQ2J9J'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-engine = create_engine('sqlite:///docs.db')
+# engine = create_engine('sqlite:///docs.db')
+engine = create_engine('postgresql://testuser:test123@localhost/docs')
 Base.metadata.bind = engine
 api = Api(app)
 
@@ -48,7 +49,7 @@ def drawinglistJSON():
     doc_list = session.query(Documents).all()
     return jsonify(Documents=[i.serialize for i in doc_list])
 
-@app.route("/drawinglist/titleJSON")
+@app.route("/drawinglist/JSON2")
 def drawinglisttitleJSON():
     doc_titles = session.query(DocTitles).all()
     return jsonify(Documents=[i.serialize for i in doc_titles])
