@@ -16,9 +16,6 @@ class Documents(Base):
     revision = Column(String(), nullable=False)
     pub_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     pub_update = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-    # one-to-many relationship with DocTitles
-    x = relationship("DocTitles", backref='doc_title._id')
-
 
     @property
     def serialize(self):
@@ -29,16 +26,16 @@ class Documents(Base):
             'doc_name': self.doc_name,
             'revision': self.revision,
             'pub_date': self.pub_date,
-            'pub_update': self.pub_update,
-            'x': self.x
+            'pub_update': self.pub_update
             }
 
 
 class DocTitles(Base):
-    __tablename__ = 'doc_title'
+    __tablename__ = 'doctitles'
 
     _id = Column(Integer, primary_key=True, autoincrement=True)
-    doc_num = Column(Integer, ForeignKey('documents.doc_id'))
+    doc_id = Column(Integer, ForeignKey('documents.doc_id'))
+    docs = relationship("Documents", backref=backref("docs", uselist=False))
     title_line_1 = Column(String(), nullable=True)
     title_line_2 = Column(String(), nullable=True)
     title_line_3 = Column(String(), nullable=True)
@@ -50,7 +47,6 @@ class DocTitles(Base):
         """Return object data in easily serializeable format"""
         return {
             '_id': self._id,
-            'doc_num': self.doc_num,
             'title_line_1': self.title_line_1,
             'title_line_2': self.title_line_2,
             'title_line_3': self.title_line_3,

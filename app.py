@@ -51,8 +51,8 @@ def drawinglistJSON():
 
 @app.route("/drawinglist/JSON2")
 def drawinglisttitleJSON():
-    doc_titles = session.query(DocTitles).all()
-    return jsonify(Documents=[i.serialize for i in doc_titles])
+    doctitles = session.query(DocTitles).all()
+    return jsonify(Documents=[i.serialize for i in doctitles])
 
 
 @app.route("/newdocument", methods=['GET', 'POST'])
@@ -62,6 +62,9 @@ def newdocument():
                            doc_name=request.form['newdoc'],
                            revision=request.form['rev'])
         session.add(newDoc)
+        # session.commit()
+        # title_update = session.query(Documents).filter_by(doc_name=request.form['newdoc'])
+
         new_title = DocTitles(title_line_1=request.form['tl1'])
         session.add(new_title)
         session.commit()
@@ -79,6 +82,14 @@ def deldoc(id):
         session.commit()
         flash('Document deleted.')
         return redirect(url_for('drawinglist'))
+
+
+@app.route("/test")
+def test():
+    r = session.query(Documents).all()
+    dt = session.query(DocTitles).all()
+    return render_template("test.html", r=r, dt=dt)
+
 
 
 @app.errorhandler(404)
