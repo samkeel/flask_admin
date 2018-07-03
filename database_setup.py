@@ -16,6 +16,11 @@ class Documents(Base):
     revision = Column(String(), nullable=False)
     pub_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     pub_update = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    title_id = relationship('DocTitles', backref='abc', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Documents {}>'.format(self.body)
+
 
     @property
     def serialize(self):
@@ -34,12 +39,14 @@ class DocTitles(Base):
     __tablename__ = 'doctitles'
 
     _id = Column(Integer, primary_key=True, autoincrement=True)
-    doc_id = Column(Integer, ForeignKey('documents.doc_id'))
-    docs = relationship("Documents", backref=backref("docs", uselist=False))
     title_line_1 = Column(String(), nullable=True)
     title_line_2 = Column(String(), nullable=True)
     title_line_3 = Column(String(), nullable=True)
     title_line_4 = Column(String(), nullable=True)
+    title_id = Column(Integer, ForeignKey('documents.doc_id'))
+
+    def __repr__(self):
+        return '<DocTitles {}>'.format(self.body)
 
 
     @property

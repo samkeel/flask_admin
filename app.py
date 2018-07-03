@@ -62,9 +62,6 @@ def newdocument():
                            doc_name=request.form['newdoc'],
                            revision=request.form['rev'])
         session.add(newDoc)
-        # session.commit()
-        # title_update = session.query(Documents).filter_by(doc_name=request.form['newdoc'])
-
         new_title = DocTitles(title_line_1=request.form['tl1'])
         session.add(new_title)
         session.commit()
@@ -82,6 +79,14 @@ def deldoc(id):
         session.commit()
         flash('Document deleted.')
         return redirect(url_for('drawinglist'))
+
+
+@app.route("/editdoc/<int:id>", methods=['GET'])
+def editdoc(id):
+    # docToEdit = session.query(Documents).filter_by(doc_id=id).first()
+    # docToEdit = session.query(DocTitles).filter_by(title_id=id).first()
+    if request.method == 'GET':
+        return render_template('edit.html', docToEdit=docToEdit)
 
 
 @app.route("/test")

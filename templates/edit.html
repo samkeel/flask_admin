@@ -75,7 +75,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for n in doc_list %}
+                                        {% for n in docToEdit %}
                                         <tr class="odd gradeX">
                                             <td>{{n.project}}</td>
                                             <td>{{n.doc_name}}</td>
@@ -85,7 +85,7 @@
                                             <td>{{n.title_line_3}}</td>
                                             <td>{{n.title_line_4}}</td>
                                             <td class="actions">
-                                                <a href="{{url_for('editdoc', id=n.doc_id)}}" class="icon" id="not-success" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-edit"></i></a>                                                
+                                                <a href="/" class="icon" id="not-success" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-edit"></i></a>                                                
                                                 <a href="{{url_for('deldoc', id=n.doc_id)}}" class="icon" id="not-success" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="mdi mdi-delete"></i></a>
                                             </td>
                                         </tr>
