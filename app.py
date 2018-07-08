@@ -78,7 +78,8 @@ def editdoc(id):
 @app.route("/newdoc", methods=['GET', 'POST'])
 def newdoc():
     if request.method == 'POST':
-        new_doc = Documents(doc_title=request.form['newtitle'])
+        new_doc = Documents(doc_title=request.form['newtitle'],
+                            doc_contents=request.form['newtext'])
         session.add(new_doc)
         session.commit()
         flash('Document Added.')

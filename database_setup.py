@@ -13,18 +13,10 @@ class Documents(Base):
 
     doc_id = Column(Integer, primary_key=True)
     doc_title = Column(String(255), nullable=False)
+    # tested for large paragraphs. no loss of text on 978 word test
     doc_contents = Column(String(), nullable=True)
     pub_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     pub_update = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-
-    # @property
-    # def serialize(self):
-    #     """Return object data in easily serializeable format"""
-    #     return {
-    #         'doc_id': self.doc_id,
-    #         'doc_title': self.doc_title,
-    #         'doc_contents': self.doc_contents
-    #     }
 
 
 engine = create_engine('postgresql://testuser:test123@localhost/docs')
