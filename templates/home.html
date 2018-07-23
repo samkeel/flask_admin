@@ -1,55 +1,88 @@
-{% extends "index.html" %} 
-{% block content %}
+{% extends "index.html" %} {% block content %}
 
 <body class="be-splash-screen">
-    <div class="be-wrapper be-login">
-      <div class="be-content">
-        <div class="main-content container-fluid">
-          <div class="splash-container">
-            <div class="card card-border-color card-border-color-primary">
-              <div class="card-header"><img src="assets/img/logo-xx.png" alt="logo" width="102" height="27" class="logo-img"><span class="splash-description">Please enter your user information.</span></div>
-              <div class="card-body">
-                <form action="/dashboard" method="get">
-                  <div class="login-form">
-                    <div class="form-group">
-                      <input id="username" type="text" placeholder="Username" autocomplete="off" class="form-control">
+  <div class="be-wrapper be-login">
+    <div class="be-content">
+      <div class=flashes>
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+          {% if category == 'message' %}
+          <div role="alert" class="alert alert-danger alert-icon alert-icon-border alert-dismissible">
+              <div class="icon">
+                  <span class="mdi mdi-check"></span>
+              </div>
+              <div class="message">
+                  <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                      <span aria-hidden="true" class="mdi mdi-close"></span>
+                  </button>
+                  {% else %}
+                  <!-- if error or warning clauses -->
+                  <div class="alert alert-{{ category }} alert-dismissible" role="alert"></div>
+                  {% endif %} {{ message }}
+              </div>
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+      </div>
+      <div class="main-content container-fluid">
+        <div class="splash-container">
+          <div class="card card-border-color card-border-color-primary">
+            <div class="card-header">
+              <img src="assets/img/logo-xx.png" alt="logo" width="102" height="27" class="logo-img">
+              <span class="splash-description">Please enter your user information.</span>
+            </div>
+            <div class="card-body">
+              <form action="#" method="POST">
+                <div class="login-form">
+                  <div class="form-group">
+                    <input id="username" name="username" type="text" placeholder="Username" autocomplete="off" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <input id="email" name="email" type="password" placeholder="Password" autocomplete="off" class="form-control">
+                  </div>
+                  <div class="form-group row login-tools">
+                    <div class="col-6 login-remember">
+                      <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input">
+                        <span class="custom-control-label">Remember Me</span>
+                      </label>
                     </div>
-                    <div class="form-group">
-                      <input id="password" type="password" placeholder="Password" class="form-control">
-                    </div>
-                    <div class="form-group row login-tools">
-                      <div class="col-6 login-remember">
-                        <label class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input"><span class="custom-control-label">Remember Me</span>
-                        </label>
-                      </div>
-                      <div class="col-6 login-forgot-password"><a href="pages-forgot-password.html">Forgot Password?</a></div>
-                    </div>
-                    <div class="form-group row login-submit">
-                      <div class="col-6">
-                        <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl">Sign in</button>
-                      </div>
+                    <div class="col-6 login-forgot-password">
+                      <a href="pages-forgot-password.html">Forgot Password?</a>
                     </div>
                   </div>
-                </form>
-              </div>
+                  <div class="form-group row login-submit">
+                    <div class="col-6">
+                      <!-- TEMP REFRESH BUTTON WHILE TESTING -->
+                      <button class="btn btn-secondary btn-xl">
+                        <a href="{{url_for('home')}}">Refresh</a>
+                      </button>
+                    </div>
+                    <div class="col-6">
+                      <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl">Sign in</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='lib/jquery/jquery.min.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='lib/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
 
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-      	App.init();
-      });
-      
-    </script>
-  </body>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      App.init();
+      setTimeout(function () {
+        $("div.flashes").remove();
+      }, 1000); // 1 seconds
+    });
+
+  </script>
+</body>
 {% endblock %}

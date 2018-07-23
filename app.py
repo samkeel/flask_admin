@@ -7,30 +7,54 @@ from flask import (Flask,
                    flash,
                    request, jsonify)
 
+from flask_login import (LoginManager,
+                         login_required,
+                         login_user,
+                         logout_user)
+
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
-from database_setup import Base, Documents
-from flask_restful import Api
+from database_setup import Base, Documents, User
+from user import dbUser
 
 
 app = Flask(__name__)
 app.secret_key = 'Xqanu6dV6RKAMo5U0OmG2tlJpgIKBBgNaaAjlcXoR4RHZyyBTsodc7DmDF9+vKjkPuFevya7LmOgy9hx3WYKBTuzEhd61VQ2J9J'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# engine = create_engine('sqlite:///docs.db')
 engine = create_engine('postgresql://testuser:test123@localhost/docs')
 Base.metadata.bind = engine
-api = Api(app)
+login_manager = LoginManager(app)
 
 session = scoped_session(sessionmaker(bind=engine))
 
+@login_manager.user_loader
+def load_user(user_id):
+    user = session.query(User).get(user_id)
+    if user:
+        return dbUser(user)
+    else:
+        return None
 
-@app.route("/")
+
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template("home.html")
+    # TODO: error handing
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        user = session.query(User).filter_by(username=username, email=email).first()
+        if user:
+            if login_user(dbUser(user)):
+                return redirect(url_for('dashboard'))
+        error = "Login failed"
+    else:
+        return render_template("home.html")
 
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
     return render_template("dashboard.html")
 

@@ -6,4 +6,5 @@ The layout template is the 'Beagle - Responsive Admin Template' created by [Foxy
 ## packages:
 * Flask-Sqlalchemy
 * Flask-RESTful
+* flask-login
 * psycopg2 
