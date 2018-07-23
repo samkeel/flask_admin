@@ -1,17 +1,17 @@
 #! /usr/bin/env python3.6
-
 from flask import (Flask,
                    render_template,
                    redirect,
                    url_for,
                    flash,
-                   request, jsonify)
+                   request, jsonify, abort)
 
 from flask_login import (LoginManager,
                          login_required,
                          login_user,
                          logout_user)
-
+from flask_wtf import FlaskForm
+from urllib.parse import urlparse, urljoin
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 from database_setup import Base, Documents, User
@@ -28,6 +28,28 @@ login_manager = LoginManager(app)
 
 session = scoped_session(sessionmaker(bind=engine))
 
+
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
+
+def get_redirect_target():
+    for target in request.values.get('next'), request.referrer:
+        if not target:
+            continue
+        if is_safe_url(target):
+            return target
+
+
+def redirect_back(endpoint, **values):
+    target = request.form['next']
+    if not target or not is_safe_url(target):
+        target = url_for(endpoint, **values)
+    return redirect(target)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     user = session.query(User).get(user_id)
@@ -36,19 +58,24 @@ def load_user(user_id):
     else:
         return None
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    # TODO: error handing
-    error = None
+    next = get_redirect_target()
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         user = session.query(User).filter_by(username=username, email=email).first()
         if user:
             if login_user(dbUser(user)):
-                return redirect(url_for('dashboard'))
-        error = "Login failed"
+                return redirect_back('dashboard')
+        return render_template('home.html', next=next)
     else:
         return render_template("home.html")
 
@@ -60,12 +87,14 @@ def dashboard():
 
 
 @app.route("/drawinglist")
+@login_required
 def drawinglist():
     # doc_list = session.query(Documents).all()
     return render_template("drawinglist.html")
 
 
 @app.route("/newdocument", methods=['GET', 'POST'])
+@login_required
 def newdocument():
     if request.method == 'POST':
         # newDoc = Documents(project=request.form['newproj'],
@@ -82,6 +111,7 @@ def newdocument():
 
 
 @app.route("/deldoc/<int:id>", methods=['GET', 'POST'])
+@login_required
 def deldoc(id):
     # docToDelete = session.query(Documents).filter_by(doc_id=id).first()
     if request.method == 'GET':
@@ -92,6 +122,7 @@ def deldoc(id):
 
 
 @app.route("/editdoc/<int:id>", methods=['GET'])
+@login_required
 def editdoc(id):
     # docToEdit = session.query(Documents).filter_by(doc_id=id).first()
     # docToEdit = session.query(DocTitles).filter_by(title_id=id).first()
@@ -100,6 +131,7 @@ def editdoc(id):
 
 
 @app.route("/newdoc", methods=['GET', 'POST'])
+@login_required
 def newdoc():
     if request.method == 'POST':
         new_doc = Documents(doc_title=request.form['newtitle'],

@@ -8,3 +8,4 @@ The layout template is the 'Beagle - Responsive Admin Template' created by [Foxy
 * Flask-RESTful
 * flask-login
 * psycopg2 
+* Flask-WTF

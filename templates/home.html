@@ -30,7 +30,7 @@
               <span class="splash-description">Please enter your user information.</span>
             </div>
             <div class="card-body">
-              <form action="#" method="POST">
+              <form action="" method="POST">
                 <div class="login-form">
                   <div class="form-group">
                     <input id="username" name="username" type="text" placeholder="Username" autocomplete="off" class="form-control">
@@ -57,7 +57,7 @@
                       </button>
                     </div>
                     <div class="col-6">
-                      <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl">Sign in</button>
+                      <button data-dismiss="modal" type="submit" class="btn btn-primary btn-xl" value="{{ next or '' }}" name=next>Sign in</button>
                     </div>
                   </div>
                 </div>
