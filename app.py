@@ -1,4 +1,5 @@
 #! /usr/bin/env python3.6
+
 from flask import (Flask,
                    render_template,
                    redirect,
@@ -17,10 +18,10 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from database_setup import Base, Documents, User
 from user import dbUser
 
-
 app = Flask(__name__)
 app.secret_key = 'Xqanu6dV6RKAMo5U0OmG2tlJpgIKBBgNaaAjlcXoR4RHZyyBTsodc7DmDF9+vKjkPuFevya7LmOgy9hx3WYKBTuzEhd61VQ2J9J'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 engine = create_engine('postgresql://testuser:test123@localhost/docs')
 Base.metadata.bind = engine
@@ -58,6 +59,7 @@ def load_user(user_id):
     else:
         return None
 
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -83,41 +85,25 @@ def home():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    recent_docs = session.query(Documents).order_by(Documents.pub_date.desc()).limit(5)
+    return render_template("dashboard.html", recent_docs=recent_docs)
 
 
 @app.route("/drawinglist")
 @login_required
 def drawinglist():
-    # doc_list = session.query(Documents).all()
-    return render_template("drawinglist.html")
-
-
-@app.route("/newdocument", methods=['GET', 'POST'])
-@login_required
-def newdocument():
-    if request.method == 'POST':
-        # newDoc = Documents(project=request.form['newproj'],
-        #                    doc_name=request.form['newdoc'],
-        #                    revision=request.form['rev'])
-        # session.add(newDoc)
-        # new_title = DocTitles(title_line_1=request.form['tl1'])
-        # session.add(new_title)
-        # session.commit()
-        flash('Document Added.')
-        return render_template("newdocument.html")
-    else:
-        return render_template("newdocument.html")
+    doc_list = session.query(Documents).order_by(Documents.pub_date).all()
+    return render_template("drawinglist.html", doc_list=doc_list)
 
 
 @app.route("/deldoc/<int:id>", methods=['GET', 'POST'])
 @login_required
 def deldoc(id):
-    # docToDelete = session.query(Documents).filter_by(doc_id=id).first()
+    docToDelete = session.query(Documents).filter_by(doc_id=id).first()
     if request.method == 'GET':
-        # session.delete(docToDelete)
-        # session.commit()
-        # flash('Document deleted.')
+        session.delete(docToDelete)
+        session.commit()
+        flash('Document deleted.')
         return redirect(url_for('drawinglist'))
 
 
@@ -125,9 +111,15 @@ def deldoc(id):
 @login_required
 def editdoc(id):
     # docToEdit = session.query(Documents).filter_by(doc_id=id).first()
-    # docToEdit = session.query(DocTitles).filter_by(title_id=id).first()
     if request.method == 'GET':
         return render_template('edit.html')
+
+
+@app.route("/doc/<int:id>", methods=['GET'])
+@login_required
+def opendoc(id):
+    docdata = session.query(Documents).filter_by(doc_id=id).first()
+    return render_template('doc.html', docdata=docdata)
 
 
 @app.route("/newdoc", methods=['GET', 'POST'])
@@ -135,6 +127,7 @@ def editdoc(id):
 def newdoc():
     if request.method == 'POST':
         new_doc = Documents(doc_title=request.form['newtitle'],
+                            doc_summary=request.form['newsummary'],
                             doc_contents=request.form['newtext'])
         session.add(new_doc)
         session.commit()
@@ -142,7 +135,6 @@ def newdoc():
         return render_template('newdoc.html')
     else:
         return render_template('newdoc.html')
-
 
 
 @app.errorhandler(404)
