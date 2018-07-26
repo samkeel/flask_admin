@@ -37,8 +37,10 @@
                     <div class="col-md-12">
                         <div class="card card-border card-contrast">
                             <div class="card-header card-header-contrast">{{docdata.doc_title}}
-                                <div class="tools">
-                                    <span class="icon mdi mdi-edit"></span>
+                                <div class="tools">                                        
+                                    <a href="{{url_for('editdoc', id=docdata.doc_id)}}" role="button"><span class="icon mdi mdi-edit" data-toggle="tooltip" data-placement="left" title="Edit"></span></a> 
+                                    <a href="{{url_for('dashboard')}}"><span class="icon mdi mdi-home" data-toggle="tooltip" data-placement="top" title="Dashboard"></span></a> 
+                                    <a href="{{url_for('drawinglist')}}"><span class="icon mdi mdi-filter-list" data-toggle="tooltip" data-placement="bottom" title="Document list"></span></a> 
                                 </div>
                                 <span class="card-subtitle">{{docdata.doc_summary}}</span>
                             </div>

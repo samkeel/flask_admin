@@ -25,49 +25,49 @@
                             <li class="timeline-month">
                                 <span>Recent Documents</span>
                             </li>
-                            {% for docs in recent_docs %}
-                                {% if loop.index is divisibleby 2 %}
-                                    <li class="timeline-item right">
-                                        <div class="timeline-content timeline-type file">
-                                            <div class="timeline-icon">
-                                                    <i class="icon mdi mdi-file"></i>
-                                                </div>
-                                                <div class="timeline-avatar">
-                                                    <img src="assets/img/avatar6.png" alt="Avatar" class="circle">
-                                                </div>
-                                                <div class="timeline-header">
-                                                    <span class="timeline-autor">User</span>
-                                                    <p class="timeline-activity">{{docs.doc_title}}
-                                                <span class="timeline-time">{{docs.pub_update}}</span>
-                                            </div>
-                                            <div class="timeline-summary">
-                                                    <p>{{docs.doc_summary}}</p>
-                                                </div>
-                                        </div>
-                                    </li>
-                                {% else %}
-                                    <li class="timeline-item timeline-item-detailed left">
-                                        <div class="timeline-content timeline-type comment">
-                                            <div class="timeline-icon">
-                                                <i class="icon mdi mdi-comment-text-alt"></i>
-                                            </div>
-                                            <div class="timeline-avatar">
-                                                <img src="assets/img/avatar.png" alt="Avatar" class="circle">
-                                            </div>                                            
-                                            <div class="timeline-header">
-                                                <span class="icon mdi mdi-edit"></span>
-                                                <span class="timeline-autor">User</span>
-                                                <p class="timeline-activity">{{docs.doc_title}}</p>                                                                                               
-                                                <span class="timeline-time">{{docs.pub_update}}</span>                                                
-                                            </div>
-                                            <div class="timeline-summary">
-                                                <p>{{docs.doc_summary}} </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                {% endif %}
-
-                            {% endfor %}
+                            {% for docs in recent_docs %} {% if loop.index is divisibleby 2 %}
+                            <li class="timeline-item right">
+                                <div class="timeline-content timeline-type file">
+                                    <div class="timeline-icon">
+                                        <i class="icon mdi mdi-file"></i>
+                                    </div>
+                                    <div class="timeline-avatar">
+                                        <i class="icon mdi mdi-face" style="font-size:24px;"></i>
+                                    </div>
+                                    <div class="timeline-header">
+                                        <span class="timeline-autor">User</span>
+                                        <p class="timeline-activity">{{docs.doc_title}}
+                                        <a href="{{url_for('opendoc', id=docs.doc_id)}}"><span class="icon mdi mdi-eye" data-toggle="tooltip" data-placement="top" title="Open"></span></a>
+                                        <a href="{{url_for('editdoc', id=docs.doc_id)}}"><span class="icon mdi mdi-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></span></a>
+                                        <span class="timeline-time">{{docs.pub_update}}</span>
+                                    </div>
+                                    <div class="timeline-summary">
+                                        <p>{{docs.doc_summary}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="timeline-item timeline-item-detailed left">
+                                <div class="timeline-content timeline-type comment">
+                                    <div class="timeline-icon">
+                                        <i class="icon mdi mdi-file"></i>
+                                    </div>
+                                    <div class="timeline-avatar">
+                                        <i class="icon mdi mdi-face" style="font-size:24px;"></i>
+                                    </div>
+                                    <div class="timeline-header">                                        
+                                        <span class="timeline-autor">User</span>                                        
+                                        <p class="timeline-activity">{{docs.doc_title}}</p>
+                                        <a href="{{url_for('opendoc', id=docs.doc_id)}}"><span class="icon mdi mdi-eye" data-toggle="tooltip" data-placement="top" title="Open"></span></a>
+                                        <a href="{{url_for('editdoc', id=docs.doc_id)}}"><span class="icon mdi mdi-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></span></a>
+                                        <span class="timeline-time">{{docs.pub_update}}</span>
+                                    </div>
+                                    <div class="timeline-summary">
+                                        <p>{{docs.doc_summary}} </p>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %} {% endfor %}
                         </ul>
                     </div>
                 </div>
