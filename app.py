@@ -107,12 +107,19 @@ def deldoc(id):
         return redirect(url_for('drawinglist'))
 
 
-@app.route("/editdoc/<int:id>", methods=['GET'])
+@app.route("/editdoc/<int:id>", methods=['GET', 'POST'])
 @login_required
 def editdoc(id):
-    # docToEdit = session.query(Documents).filter_by(doc_id=id).first()
-    if request.method == 'GET':
-        return render_template('edit.html')
+    docToEdit = session.query(Documents).filter_by(doc_id=id).first()
+    if request.method == 'POST':
+        docToEdit.doc_title = request.form['edittitle']
+        docToEdit.doc_summary = request.form['editsummary']
+        docToEdit.doc_contents = request.form['edittext']
+        session.add(docToEdit)
+        session.commit()
+        return redirect(url_for('drawinglist'))
+    else:
+        return render_template('edit.html', docToEdit=docToEdit)
 
 
 @app.route("/doc/<int:id>", methods=['GET'])

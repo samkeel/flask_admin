@@ -83,7 +83,7 @@
                                                     </button>
                                                     <div role="menu" class="dropdown-menu">
                                                         <a href="{{url_for('opendoc', id=n.doc_id)}}" class="dropdown-item">Open</a>
-                                                        <a href="#" class="dropdown-item">Edit</a>
+                                                        <a href="{{url_for('editdoc', id=n.doc_id)}}" class="dropdown-item">Edit</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a href="{{url_for('deldoc', id=n.doc_id)}}" class="dropdown-item">Delete</a>
                                                     </div>
